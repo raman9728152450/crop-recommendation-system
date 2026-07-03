@@ -32,8 +32,9 @@ A machine learning project that recommends the most suitable crop to grow based 
    - Decision Tree Classifier
    - XGBoost Classifier
    - Random Forest Classifier
-5. **Model Selection** — Best performing model saved for deployment
-6. **Deployment** — Interactive Streamlit app for live predictions
+5. **Model Evaluation** — Compared accuracy and analyzed confusion matrices for all three models
+6. **Model Selection** — Best performing model saved for deployment
+7. **Deployment** — Interactive Streamlit app for live predictions
 
 ---
 
@@ -41,11 +42,19 @@ A machine learning project that recommends the most suitable crop to grow based 
 
 | Model | Accuracy |
 |---|---|
-| Decision Tree | 96.82% |
+| Decision Tree | 97.05% |
 | Random Forest | 98.41% |
 | **XGBoost** ⭐ (best model) | **98.64%** |
 
 XGBoost was automatically selected as the best-performing model and is the one deployed in the Streamlit app.
+
+---
+
+## 🧩 Confusion Matrices
+
+![Confusion Matrices](confusion_matrices.png)
+
+Confusion matrices for all three models, evaluated on the held-out test set. Strong diagonal values across every crop class confirm high prediction accuracy, with only minor confusion between visually/nutritionally similar crops (e.g. cotton/coffee, mothbeans/pigeonpeas).
 
 ---
 
@@ -54,7 +63,7 @@ XGBoost was automatically selected as the best-performing model and is the one d
 ```
 crop-recommendation-system/
 │
-├── crop_recommendation_model.py   # Full ML pipeline: EDA, preprocessing, training, tuning
+├── crop_recommendation_model.py   # Full ML pipeline: EDA, preprocessing, training, tuning, confusion matrix
 ├── streamlit_app.py               # Streamlit web interface for predictions
 ├── Crop_recommendation.csv        # Dataset
 ├── best_crop_model.pkl            # Saved best model (generated after running the pipeline)
@@ -62,6 +71,7 @@ crop-recommendation-system/
 ├── feature_columns.pkl            # Feature column order used during training
 ├── label_encoder.pkl              # Label encoder (used if XGBoost is the best model)
 ├── best_model_name.pkl            # Name of the selected best model
+├── confusion_matrices.png         # Confusion matrix comparison for all 3 models
 └── README.md
 ```
 
@@ -83,6 +93,7 @@ pip install pandas numpy scikit-learn xgboost seaborn matplotlib joblib streamli
 ### 3. Train the model
 Run `crop_recommendation_model.py` (in Jupyter, Colab, or as a script) to:
 - Train and tune all three models
+- Generate the confusion matrix comparison (`confusion_matrices.png`)
 - Generate the `.pkl` files needed for the app
 
 ### 4. Launch the web app
@@ -118,4 +129,3 @@ Open the local URL shown in the terminal (usually `http://localhost:8501`) to us
 - Multi-language support for the interface
 
 ---
-
