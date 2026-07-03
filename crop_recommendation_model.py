@@ -22,7 +22,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
 from xgboost import XGBClassifier
 import joblib
 
@@ -200,6 +200,34 @@ print("\n=========== FINAL RESULTS ===========")
 print(f"Decision Tree Accuracy : {accuracy:.4f}")
 print(f"XGBoost Accuracy       : {accuracyXG:.4f}")
 print(f"Random Forest Accuracy : {accuracyRF:.4f}")
+
+# ---------------------------------------------------------
+# 10b. CONFUSION MATRICES (all 3 models side-by-side)
+# ---------------------------------------------------------
+fig, axes = plt.subplots(1, 3, figsize=(20, 6))
+
+cm_dt = confusion_matrix(y_test, y_pred)
+ConfusionMatrixDisplay(cm_dt, display_labels=best_clf.classes_).plot(
+    ax=axes[0], cmap="Blues", xticks_rotation=90, colorbar=False
+)
+axes[0].set_title(f"Decision Tree (Acc: {accuracy:.4f})")
+
+cm_xgb = confusion_matrix(y_testXG, y_predXG)
+ConfusionMatrixDisplay(cm_xgb, display_labels=label_encoder.classes_).plot(
+    ax=axes[1], cmap="Greens", xticks_rotation=90, colorbar=False
+)
+axes[1].set_title(f"XGBoost (Acc: {accuracyXG:.4f})")
+
+cm_rf = confusion_matrix(y_test, y_predRF)
+ConfusionMatrixDisplay(cm_rf, display_labels=best_rf_clf.classes_).plot(
+    ax=axes[2], cmap="Oranges", xticks_rotation=90, colorbar=False
+)
+axes[2].set_title(f"Random Forest (Acc: {accuracyRF:.4f})")
+
+plt.tight_layout()
+plt.savefig("confusion_matrices.png", dpi=150)
+plt.show()
+print("\nSaved confusion_matrices.png")
 
 # ---------------------------------------------------------
 # 11. SAVE THE BEST MODEL FOR THE STREAMLIT APP
