@@ -38,17 +38,19 @@ A machine learning project that recommends the most suitable crop to grow based 
 
 ---
 
-## 🏆 Model Performance
+## 📊 Model Performance Evaluation
 
-| Model | Accuracy |
-|---|---|
-| Decision Tree | 97.05% |
-| Random Forest | 98.41% |
-| **XGBoost** ⭐ (best model) | **98.64%** |
+Here is the comprehensive comparison of the three trained models based on multiple evaluation metrics. 
 
-XGBoost was automatically selected as the best-performing model and is the one deployed in the Streamlit app.
+### 📈 Metrics Summary Table
 
----
+| Model | Accuracy | Precision | Recall | F1-Score | AUROC |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Decision Tree** | 96.59% | 0.9690 | 0.9659 | 0.9658 | 0.9869 |
+| **XGBoost** | **98.64%** | **0.9873** | **0.9864** | **0.9864** | 0.9994 |
+| **Random Forest** | 98.41% | 0.9853 | 0.9841 | 0.9840 | **0.9999** |
+
+*Note: XGBoost performed the best across almost all major metrics, while Random Forest achieved the highest AUROC score.*
 
 ## 🧩 Confusion Matrices
 
